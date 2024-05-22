@@ -8,7 +8,7 @@ type IpHopsReqBody struct {
 }
 
 type IpHop struct {
-	Hostname string `json:"hostname"`
-	Ip       string `json:"ip"`
-	Rtt      string `json:"returnTime"`
+	Hostname    string   `json:"hostname"`
+	Ip          string   `json:"ip"`
+	ReturnTimes []string `json:"returnTimes"`
 }
