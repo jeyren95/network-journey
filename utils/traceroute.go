@@ -3,14 +3,21 @@ package utils
 import (
 	"bufio"
 	"fmt"
+	"net"
 	"github.com/jeyren95/network-journey/models"
 	"os/exec"
-	"strconv"
 	"strings"
 )
 
+const DEFAULT_NUM_QUERIES = 1
+const HOP_NUMBER_COL = 0
+const HOSTNAME_COL = 1
+const IP_COL = 2
+const RETURN_TIME_COL = 3
+const UNIT_OF_TIME_COL = 4
+
 func TraceRoute(reqBody *models.IpHopsReqBody) ([]models.IpHop, error) {
-	numQueries := fmt.Sprint("-q ", reqBody.NumQueries)
+	numQueries := fmt.Sprint("-q ", DEFAULT_NUM_QUERIES)
 	maxHops := fmt.Sprint("-m ", reqBody.MaxHops)
 	waitTime := fmt.Sprint("-w ", reqBody.WaitTime)
 
@@ -34,36 +41,23 @@ func TraceRoute(reqBody *models.IpHopsReqBody) ([]models.IpHop, error) {
 	res := []models.IpHop{}
 
 	for scanner.Scan() {
-		// skip if first row of the traceroute results
-		if currRow == 0 {
+		line := scanner.Text()
+		columns := strings.Fields(line)
+		fmt.Println(columns[HOSTNAME_COL])
+
+		// skip if first row of the traceroute results or skip if query timed out
+		if currRow == 0 || hasTimedOut(columns[HOSTNAME_COL]) {
 			currRow += 1
 			continue
 		}
 
-		line := scanner.Text()
-		columns := strings.Fields(line)
-
 		ipHop := models.IpHop{}
-
-		for index, col := range columns {
-			if isHopIndex(index) || hasTimedOut(col) {
-				continue
-			}
-
-			if isIpColumn(col) {
-				ipHop.Ip = col[1 : len(col)-1]
-			} else if ipHop.Hostname == "" {
-				ipHop.Hostname = col
-			} else {
-				if isUnitOfTimeColumn(col) {
-					ipHop.ReturnTimes[len(ipHop.ReturnTimes)-1] += col
-				} else {
-					ipHop.ReturnTimes = append(ipHop.ReturnTimes, col)
-				}
-			}
-		}
-
+		ipHop.Ip = columns[IP_COL][1:len(columns[IP_COL]) - 1]
+		ipHop.Hostname = columns[HOSTNAME_COL]
+		ipHop.ReturnTime = columns[RETURN_TIME_COL] + columns[UNIT_OF_TIME_COL]
+		ipHop.IsIpPrivate = isIpPrivate(ipHop.Ip) 
 		res = append(res, ipHop)
+
 		currRow += 1
 	}
 
@@ -74,19 +68,11 @@ func TraceRoute(reqBody *models.IpHopsReqBody) ([]models.IpHop, error) {
 	return res, nil
 }
 
-func isHopIndex(columnNumber int) bool {
-	return columnNumber == 0
-}
-
 func hasTimedOut(col string) bool {
 	return col == "*"
 }
 
-func isIpColumn(col string) bool {
-	return strings.ContainsRune(col, '(') && strings.ContainsRune(col, ')')
-}
-
-func isUnitOfTimeColumn(col string) bool {
-	_, err := strconv.ParseFloat(col, 32)
-	return err != nil
+func isIpPrivate(ip string) bool {
+	parsedIp := net.ParseIP(ip)
+	return parsedIp.IsPrivate()
 }

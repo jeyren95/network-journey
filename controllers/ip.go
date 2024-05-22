@@ -14,7 +14,7 @@ func IpHops(ctx *gin.Context) {
 			"message": "Invalid request body",
 		})
 	}
-	res, err :=	utils.TraceRoute(&reqBody)
+	ipHops, err :=	utils.TraceRoute(&reqBody)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
@@ -22,7 +22,15 @@ func IpHops(ctx *gin.Context) {
 		})
 	}
 
+	geolocationHops, err := utils.GetGeolocations(ipHops)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Something went wrong",
+		})
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
-		"ipHops": res,
+		"ipHops": ipHops,
+		"geolocationHops": geolocationHops,
 	})
 }
