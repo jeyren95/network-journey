@@ -1,16 +1,16 @@
 package models
 
 type IpHopsReqBody struct {
-	Hostname   string `json:"hostname"`
-	WaitTime   int    `json:"waitTime"`
-	MaxHops    int    `json:"maxHops"`
+	Hostname string `json:"hostname"`
+	WaitTime int    `json:"waitTime"`
+	MaxHops  int    `json:"maxHops"`
 }
 
 type IpHop struct {
-	Hostname    string   `json:"hostname"`
-	Ip          string   `json:"ip"`
-	IsIpPrivate bool			`json:"isIpPrivate"`
-	ReturnTime string `json:"returnTime"`
+	Hostname    string `json:"hostname"`
+	Ip          string `json:"ip"`
+	IsIpPrivate bool   `json:"isIpPrivate"`
+	ReturnTime  string `json:"returnTime"`
 }
 
 type Geolocation struct {
