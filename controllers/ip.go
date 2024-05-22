@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jeyren95/network-journey/utils"
 	"github.com/jeyren95/network-journey/models"
+	"github.com/jeyren95/network-journey/utils"
 	"net/http"
 )
 
@@ -14,7 +14,7 @@ func IpHops(ctx *gin.Context) {
 			"message": "Invalid request body",
 		})
 	}
-	ipHops, err :=	utils.TraceRoute(&reqBody)
+	ipHops, err := utils.TraceRoute(&reqBody)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
@@ -30,7 +30,7 @@ func IpHops(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"ipHops": ipHops,
+		"ipHops":          ipHops,
 		"geolocationHops": geolocationHops,
 	})
 }

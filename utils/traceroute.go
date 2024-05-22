@@ -3,8 +3,8 @@ package utils
 import (
 	"bufio"
 	"fmt"
-	"net"
 	"github.com/jeyren95/network-journey/models"
+	"net"
 	"os/exec"
 	"strings"
 )
@@ -52,10 +52,10 @@ func TraceRoute(reqBody *models.IpHopsReqBody) ([]models.IpHop, error) {
 		}
 
 		ipHop := models.IpHop{}
-		ipHop.Ip = columns[IP_COL][1:len(columns[IP_COL]) - 1]
+		ipHop.Ip = columns[IP_COL][1 : len(columns[IP_COL])-1]
 		ipHop.Hostname = columns[HOSTNAME_COL]
 		ipHop.ReturnTime = columns[RETURN_TIME_COL] + columns[UNIT_OF_TIME_COL]
-		ipHop.IsIpPrivate = isIpPrivate(ipHop.Ip) 
+		ipHop.IsIpPrivate = isIpPrivate(ipHop.Ip)
 		res = append(res, ipHop)
 
 		currRow += 1

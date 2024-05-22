@@ -1,19 +1,19 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/jeyren95/network-journey/models"
+	"io"
 	"net"
 	"net/http"
-	"io"
-	"encoding/json"
-	"github.com/jeyren95/network-journey/models"
 )
 
 const API_ENDPOINT = "http://ip-api.com/json"
 
 func GetGeolocations(ipHops []models.IpHop) ([]models.Geolocation, error) {
 	var geolocations []models.Geolocation
-	for _, hop := range(ipHops) {
+	for _, hop := range ipHops {
 		if hop.IsIpPrivate {
 			continue
 		}
@@ -42,7 +42,7 @@ func GetGeolocations(ipHops []models.IpHop) ([]models.Geolocation, error) {
 
 		geolocations = append(geolocations, data)
 	}
-	
+
 	return geolocations, nil
 }
 
@@ -50,4 +50,3 @@ func isPrivate(ip string) bool {
 	parsedIp := net.ParseIP(ip)
 	return parsedIp.IsPrivate()
 }
-
