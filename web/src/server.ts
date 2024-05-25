@@ -4,15 +4,14 @@ import {
   type OutgoingHttpHeaders,
   type IncomingMessage,
 } from "http";
-import { join } from "path";
 import { readFileSync } from "fs";
 
 // read files
 const BUFFERS = {
-	homePage: readFileSync(join(__dirname, "..", "src", "pages", "index.html")),
-	notFoundPage: readFileSync(join(__dirname, "..", "src", "pages", "404.html")),
-	stylesheet: readFileSync(join(__dirname, "..", "src", "index.css")),
-	leafletScript: readFileSync(join(__dirname, "leaflet.js")),
+	homePage: readFileSync("src/pages/index.html"),
+	notFoundPage: readFileSync("src/pages/404.html"),
+	stylesheet: readFileSync("src/index.css"),
+	leafletScript: readFileSync("dist/leaflet.js"),
 }
 
 enum URL {
