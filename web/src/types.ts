@@ -1,29 +1,29 @@
 export type IpHopsOptions = {
-	hostname: string;
-	waitTime: number;
-	maxHops: number;
-}
+  hostname: string;
+  waitTime: number;
+  maxHops: number;
+};
 
 export type IpHop = {
-	hostname: string;
-	ip: string;
-	isIpPrivate: boolean;
-	returnTime: string;
-}
+  hostname: string;
+  ip: string;
+  isIpPrivate: boolean;
+  returnTime: string;
+};
 
 export type GeolocationHop = {
-	status: string;
-	message: string;
-	country: string;
-	countryCode: string;
-	region: string;
-	regionName: string;
-	city: string;
-	zip: string;
-	lat: number;
-	lon: number;
-	timezone: number;
-	isp: string;
-	org: string;
-	as: string;
-}
+  status: string;
+  message: string;
+  country: string;
+  countryCode: string;
+  region: string;
+  regionName: string;
+  city: string;
+  zip: string;
+  lat: number;
+  lon: number;
+  timezone: number;
+  isp: string;
+  org: string;
+  as: string;
+};
