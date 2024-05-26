@@ -8,8 +8,8 @@ import {
   type TileLayerOptions,
   type LatLngExpression,
 } from "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet-src.esm.js";
-import type { GeolocationHop, IpHopsOptions } from "./types";
-import { getGeolocationHops } from "./services";
+import type { GetIpHopsRes, IpHopsOptions } from "./types";
+import { getIpHops } from "./services";
 
 // initialize map
 const TILE_LAYER_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -56,19 +56,17 @@ const form = document.querySelector("form");
   const waitTime = (<HTMLInputElement>document.querySelector("#wait-time"))
     .value;
   const requestBody: IpHopsOptions = {
-    hostname: <string>hostname,
-    waitTime: Number(<string>waitTime),
-    maxHops: Number(<string>maxHops),
+    hostname,
+    waitTime: Number(waitTime),
+    maxHops: Number(maxHops),
   };
 
-  getGeolocationHops(requestBody)
+  getIpHops(requestBody)
     .then((res) => res.json())
-    .then((data) => {
-      const parsed = data.geolocationHops.map(
-        (h: GeolocationHop) => new LatLng(h.lat, h.lon),
-      );
-      parsed.forEach((p: LatLng) => addMarker(p));
-      addPolyline(parsed, { color: "red" });
+    .then((data: GetIpHopsRes) => {
+      const latlngs = data.geolocations.map((h) => new LatLng(h.lat, h.lon));
+      latlngs.forEach((l: LatLng) => addMarker(l));
+      addPolyline(latlngs, { color: "red" });
     })
     .catch((err) => console.log(err));
 });

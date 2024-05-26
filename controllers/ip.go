@@ -9,6 +9,8 @@ import (
 
 func IpHops(ctx *gin.Context) {
 	var reqBody models.IpHopsReqBody
+
+	// TODO: add validation for inputs
 	if err := ctx.ShouldBindJSON(&reqBody); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "Invalid request body",
@@ -22,7 +24,7 @@ func IpHops(ctx *gin.Context) {
 		})
 	}
 
-	geolocationHops, err := utils.GetGeolocations(ipHops)
+	geolocations, err := utils.GetGeolocations(ipHops)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Something went wrong",
@@ -30,7 +32,7 @@ func IpHops(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"ipHops":          ipHops,
-		"geolocationHops": geolocationHops,
+		"ipHops":       ipHops,
+		"geolocations": geolocations,
 	})
 }

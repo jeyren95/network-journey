@@ -11,7 +11,7 @@ export type IpHop = {
   returnTime: string;
 };
 
-export type GeolocationHop = {
+export type Geolocation = {
   status: string;
   message: string;
   country: string;
@@ -26,4 +26,9 @@ export type GeolocationHop = {
   isp: string;
   org: string;
   as: string;
+};
+
+export type GetIpHopsRes = {
+  geolocations: Geolocation[];
+  ipHops: IpHop[];
 };
