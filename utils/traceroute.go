@@ -43,7 +43,6 @@ func TraceRoute(reqBody *models.IpHopsReqBody) ([]models.IpHop, error) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		columns := strings.Fields(line)
-		fmt.Println(columns[HOSTNAME_COL])
 
 		// skip if first row of the traceroute results or skip if query timed out
 		if currRow == 0 || hasTimedOut(columns[HOSTNAME_COL]) {

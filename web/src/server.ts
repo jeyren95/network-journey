@@ -12,12 +12,14 @@ const BUFFERS = {
 	notFoundPage: readFileSync("src/pages/404.html"),
 	stylesheet: readFileSync("src/index.css"),
 	leafletScript: readFileSync("dist/leaflet.js"),
+	servicesScript: readFileSync("dist/services/index.js")
 };
 
 enum URL {
 	HOME_PAGE = "/",
 	STYLESHEET = "/src/index.css",
 	LEAFLET_SCRIPT = "/dist/leaflet.js",
+	SERVICES_SCRIPT = "/dist/services",
 }
 
 enum MimeType {
@@ -45,6 +47,10 @@ const server = createServer((req, res) => {
 		case URL.LEAFLET_SCRIPT:
 			headers["Content-Type"] = MimeType.JS;
 			writeStream(res, headers, 200, BUFFERS.leafletScript);
+			break;
+		case URL.SERVICES_SCRIPT:
+			headers["Content-Type"] = MimeType.JS;
+			writeStream(res, headers, 200, BUFFERS.servicesScript);
 			break;
 		case URL.STYLESHEET:
 			headers["Content-Type"] = MimeType.CSS;

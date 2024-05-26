@@ -12,7 +12,24 @@
 </head>
 
 <body>
-	<div id="map"></div>
+	<main>
+		<div id="map"></div>
+		<div>
+			<form method="POST" action="/">
+				<label for="hostname">Hostname</label>
+				<input id="hostname" type="text" name="hostname" />
+
+				<label for="max-hops">Max hops<label>
+				<input id="max-hops" type="number" max="30" min="1" value="30" name="max-hops" />
+
+				<label for="wait-time">Wait time</label>
+				<input id="wait-time" type="number" max="5" min="1" value="5" name="wait-time" />
+
+				<button type="submit">Get hops</button>
+			</form>
+		</div>
+	</main>
+
 
 	<script type="module" src="dist/leaflet.js"></script>
 </body>
