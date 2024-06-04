@@ -14,18 +14,28 @@
 <body>
 	<main>
 		<div id="map"></div>
-		<div>
+		<div class="form">
 			<form method="POST" action="/">
-				<label for="hostname">Hostname</label>
-				<input id="hostname" type="text" name="hostname" />
+				<fieldset>
+					<label for="hostname">Hostname</label>
+					<input id="hostname" type="text" name="hostname" />
+					<br />
+					<br />
 
-				<label for="max-hops">Max hops<label>
-				<input id="max-hops" type="number" max="30" min="1" value="30" name="max-hops" />
+					<label for="max-hops">Max hops<label>
+							<input id="max-hops" type="number" max="30" min="1" value="30" name="max-hops" />
+							<br />
+							<br />
 
-				<label for="wait-time">Wait time</label>
-				<input id="wait-time" type="number" max="5" min="1" value="5" name="wait-time" />
+							<label for="wait-time">Wait time</label>
+							<input id="wait-time" type="number" max="10" min="1" value="5" name="wait-time" />
+							<br />
+							<br />
 
-				<button type="submit">Get hops</button>
+							<button type="submit">
+								Get hops
+							</button>
+				</fieldset>
 			</form>
 		</div>
 	</main>
