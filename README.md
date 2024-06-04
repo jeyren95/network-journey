@@ -2,7 +2,7 @@
 
 Application that allows you to view the journey of your network request, documenting the geolocations of the IP hops, before eventually reaching the destination server.
 
-<b>Note: This project is currently a WIP and may look incomplete. Contributions are welcome!</b>
+<b>Note: This project is currently a WIP and only works on localhost. Contributions are welcome!</b>
 
 ## Current features
 
