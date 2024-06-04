@@ -41,6 +41,7 @@ go run main.go
 
 ```
 cd network-journey/web
+npm install
 npm run start
 ```
 
