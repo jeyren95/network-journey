@@ -1,8 +1,10 @@
 # Network journey
 
-This project allows you to view the journey of your network request, documenting the geolocations of the IP hops, before eventually reaching the destination server.
+Application that allows you to view the journey of your network request, documenting the geolocations of the IP hops, before eventually reaching the destination server.
 
-## Features
+<b>Note: This project is currently a WIP and may look incomplete. Contributions are welcome!</b>
+
+## Current features
 
 - `traceroute` is used to retrieve the IP hops
 - https://ip-api.com/ is used to retrieve the geolocations of the IP hops
@@ -16,6 +18,9 @@ This project allows you to view the journey of your network request, documenting
 
 - Go
 - Vanilla typescript (no reliance on frameworks to purposely make it more challenging)
+
+## Contributing
+Fork the repo, branch out from it, and make a PR whenever you are ready!
 
 ## How to start
 
@@ -38,3 +43,7 @@ go run main.go
 cd network-journey/web
 npm run start
 ```
+
+## Future possible implementations
+- Cater to windows users
+- DNS resolution
